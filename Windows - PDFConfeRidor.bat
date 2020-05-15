@@ -1,0 +1,1 @@
+"C:\Program Files\R\R-3.6.1\bin\Rscript.exe" -e "Sys.setenv(RSTUDIO_PANDOC='C:/Program Files/RStudio/bin/pandoc'); rmarkdown::render('C:/Users/mgborges/Dropbox/RADIOTERAPIA/CONFERIDOR_AUTO/PDFConferidor/ExtractPDF.Rmd')" && start acrord32 /A "page=1" "C:\Users\mgborges\Dropbox\RADIOTERAPIA\CONFERIDOR_AUTO\PDFConferidor\ExtractPDF.pdf"

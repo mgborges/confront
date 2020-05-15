@@ -1,0 +1,184 @@
+---
+title: ''
+author: ''
+date: ''
+output:
+  pdf_document: default
+  documentclass: article
+  classoption: a4paper
+  footer: ''
+geometry: left=2cm,right=1cm,top=0.7cm,bottom=1cm
+---
+
+<!-- Para executar: -->
+<!-- Rscript -e "rmarkdown::render('ExtractPDF.Rmd')" && evince ExtractPDF.pdf -->
+
+<!--"C:\Program Files\R\R-3.6.1\bin\Rscript.exe" -e "Sys.setenv(RSTUDIO_PANDOC='C:/Program Files/RStudio/bin/pandoc'); rmarkdown::render('C:/Users/mgborges/Dropbox/RADIOTERAPIA/CONFERIDOR_AUTO/PDFConferidor/ExtractPDF.Rmd')"  -->
+<!--start acrord32 /A "page=1" "C:\Users\mgborges\Dropbox\RADIOTERAPIA\CONFERIDOR_AUTO\PDFConferidor\ExtractPDF.pdf"-->
+
+\pagenumbering{gobble}
+
+```{python, echo=F, warning=F}
+import tkinter
+import tkinter.filedialog as filedialog
+arquivoPDF = filedialog.askopenfilename(filetypes=[("Arquivo PDF do XiO", ".pdf")], initialdir='shell:MyComputerFolder', title="Selecione o PDF para conferência")
+```
+
+```{r, echo=FALSE, warning=F}
+source("PACOTES.R")
+# Se houver modificação nas funções ou nas tabelas, descomentar as duas linhas abaixo.
+# source("FUNCOES.R")
+# source("TABELAS.R")
+
+# Utilizar 'load("TABELAS.RData")' faz a execução ser mais rápida
+load("TABELAS.RData")
+```
+
+```{r, echo=FALSE, warning=F}
+# arquivoPDF <- "EXEMPLO_FOTONS.pdf"
+arquivoPDF <- py$arquivoPDF
+
+# Manipulação do texto e das páginas contidas do PDF
+texto <- pdf_text(arquivoPDF)
+paginas <- strsplit(texto, "\n")
+paginas <- sapply(paginas,function(x) {x <- gsub("\r","",x)})
+numeroDePaginas <- NULL
+
+# Se o documento possuir apenas uma página
+if (is.null(dim(paginas))) {
+  numeroDePaginas <- length(paginas)
+} else { numeroDePaginas <- dim(paginas)[2] }
+```
+
+```{r, echo=FALSE, warning=F}
+source("SINTAXE.R")
+source("OPCOES_GENERICAS.R")
+```
+
+```{r, echo=FALSE, warning=F}
+# Definição se o campo possui ou não bolus
+if (length(grep("Bolus", texto)) == 0) {
+  BOLUS <- "---"
+} else {
+  BOLUS <- buscaDeParametros("Bolus")
+}
+
+if ((dim(ENERGIA)[1]==1) & (BOLUS == "---")) {
+    DOSE <- t(as.data.frame(strsplit(sapply(buscaDeParametros("Weight "), function(x) {x <- gsub("/"," ",x)}), " "))[1,])
+    DOSE <- as.data.frame(as.numeric(as.character(DOSE[1,])))
+    rownames (DOSE) <- NULL; colnames (DOSE) <- "Dose"
+    
+    FRACOES <- t(as.data.frame(strsplit(sapply(buscaDeParametros("Weight "), function(x) {x <- gsub("/"," ",x)}), " "))[2,])
+    FRACOES <- as.data.frame(as.numeric(as.character(FRACOES[1,])))
+    rownames (FRACOES) <- NULL; colnames (FRACOES) <- "Frações"
+    
+    GANTRY <- t(as.data.frame(strsplit(sapply(buscaDeParametros("Gantry"), function(x) {x <- gsub("/"," ",x)}), " "))[1,])
+    GANTRY <- as.data.frame(as.numeric(as.character(GANTRY[1,])))
+    rownames (GANTRY) <- NULL; colnames (GANTRY) <- "Gantry"
+    
+    COLIMADOR <- t(as.data.frame(strsplit(sapply(buscaDeParametros("Gantry"), function(x) {x <- gsub("/"," ",x)}), " "))[2,])
+    COLIMADOR <- as.data.frame(as.numeric(as.character(COLIMADOR[1,])))
+    rownames (COLIMADOR) <- NULL; colnames (COLIMADOR) <- "Colimador"
+    
+    GANTRY_COLIMADOR_MESA <- cbind(GANTRY, COLIMADOR, MESA)
+    GANTRY_COLIMADOR_MESA <- as.data.frame(paste(GANTRY_COLIMADOR_MESA$Gantry, GANTRY_COLIMADOR_MESA$Colimador, GANTRY_COLIMADOR_MESA$Mesa, sep = "/"))
+  } else if ((dim(ENERGIA)[1]!=1) & (BOLUS == "---")) {
+    DOSE <- t(as.data.frame(strsplit(sapply(buscaDeParametros("Weight "), function(x) {x <- gsub("/"," ",x)}), " ")))
+    DOSE <- as.data.frame(as.numeric(as.character(DOSE[,1])))
+    rownames (DOSE) <- NULL; colnames (DOSE) <- "Dose"
+    
+    FRACOES <- t(as.data.frame(strsplit(sapply(buscaDeParametros("Weight "), function(x) {x <- gsub("/"," ",x)}), " "))[2,])
+    FRACOES <- as.data.frame(as.numeric(as.character(FRACOES[,1])))
+    rownames (FRACOES) <- NULL; colnames (FRACOES) <- "Frações"
+    
+    GANTRY <- t(as.data.frame(strsplit(sapply(buscaDeParametros("Gantry"), function(x) {x <- gsub("/"," ",x)}), " "))[1,])
+    GANTRY <- as.data.frame(as.numeric(as.character(GANTRY[,1])))
+    rownames (GANTRY) <- NULL; colnames (GANTRY) <- "Gantry"
+    
+    COLIMADOR <- t(as.data.frame(strsplit(sapply(buscaDeParametros("Gantry"), function(x) {x <- gsub("/"," ",x)}), " "))[2,])
+    COLIMADOR <- as.data.frame(as.numeric(as.character(COLIMADOR[,1])))
+    rownames (COLIMADOR) <- NULL; colnames (COLIMADOR) <- "Colimador"
+    
+    GANTRY_COLIMADOR_MESA <- cbind(GANTRY, COLIMADOR, MESA)
+    GANTRY_COLIMADOR_MESA <- as.data.frame(paste(GANTRY_COLIMADOR_MESA$Gantry, GANTRY_COLIMADOR_MESA$Colimador, GANTRY_COLIMADOR_MESA$Mesa, sep = "/"))
+  }
+```
+
+```{r, echo=FALSE, warning=F}
+if (TIPOFEIXE == "ELETRONS") {
+  source("ELETRONS.R")
+} else if (TIPOFEIXE == "FOTONS") {
+  source("FOTONS.R")
+}
+```
+
+\newpage
+
+![](HEADER.png)
+
+Nome: **`r NOME_PACIENTE`**, HC: **`r toString(HC)`**
+
+Plano: "`r ID_PLANO`", Descrição: "`r DESCRICAO_PLANO`", Plano aprovado em: `r DATA_APROVACAO_PLANO`
+
+```{r, results='asis', echo=FALSE, warning=FALSE}
+DESVIOS_DIRETO_ARREND <- round(DESVIOS_DIRETO, digits = 2)
+DESVIOS_INVERSO_ARREND <- round(DESVIOS_INVERSO, digits = 2)
+
+if (TIPOFEIXE == "ELETRONS")
+{
+  TABELA_RESULTADOS <- format(data.frame(NOME_CAMPO, ENERGIA, SETUP, CONE, GANTRY_COLIMADOR_MESA, SSD, DOSE/FRACOES, DOSE, FRACOES, PROFUNDIDADE, ALGORITMO_CALCULO, F_RENDIMENTO_ELETRONS, F_DISTANCIA, F_ELETRONS_XiO, UM_XiO, UM_CALCULADA_INT, DESVIOS_DIRETO_ARREND, DOSE_CALCULADA, DESVIOS_INVERSO_ARREND, APROVACAO), digits = 4)
+
+  colnames(TABELA_RESULTADOS) <- c("Nome do campo", "Energia", "Setup", "Cone", "Gantry/Colimador/Mesa (°)", "DFS (cm)", "Dose diária (cGy)", "Dose total (cGy)", "Nº aplicações", "Profundidade (cm)", "Algoritmo de cálculo", "Fator rendimento", "Fator distância", "Fator rendimento (XiO)", "UM XiO", "UM calculada", "Desvio (%)", "Dose calculada (cGy)", "Desvio (%)", "")
+  rownames(TABELA_RESULTADOS) <- NUMERO_CAMPO_XIO
+  
+  kable(t(TABELA_RESULTADOS), booktabs = T, linesep = "", "latex", digits = 3, align = "c") %>% kable_styling(latex_options = c("striped", "condensed"),  stripe_color = "#99FF99", font_size = 10) %>% row_spec(dim(TABELA_RESULTADOS)[2], bold=T, background = "white") %>% column_spec(1, bold = T, italic = T) %>% row_spec(11, hline_after = T) %>% row_spec(14, hline_after = T) %>% row_spec(17, hline_after = T, bold = T) %>% row_spec(dim(TABELA_RESULTADOS)[2]-1, hline_after = T, bold = T) 
+  
+} else if (TIPOFEIXE == "FOTONS") {
+  
+  TABELA_RESULTADOS <- format(data.frame(NOME_CAMPO, ENERGIA, SETUP, TAMANHOS_DE_CAMPO, GANTRY_COLIMADOR_MESA, FILTROS_COM_ORIENTACAO, 100-PROFUNDIDADE, SSD, DOSE/FRACOES, DOSE, FRACOES, PROFUNDIDADE, CAMPO_EQUIVALENTE_XiO, Campo_COLIMADO_XiO, ALGORITMO_CALCULO, PDP_OU_TMR, F_CALIBRACAO, F_ABERTURA_COLIMADOR, F_RETROESPALHAMENTO, F_BANDEJA, F_FILTRO, F_DISTANCIA, F_OFF_AXIS, UM_XiO, UM_CALCULADA_INT, DESVIOS_DIRETO_ARREND, DOSE_CALCULADA, DESVIOS_INVERSO_ARREND, APROVACAO), digits = 4)
+  
+  # AVALIAÇÃO SE OS CAMPOS SÃO SIMÉTRICOS OU NÃO
+  if (dim(TAMANHOS_DE_CAMPO)[2] == 2)
+  {
+    colnames(TABELA_RESULTADOS) <- c("Nome do campo", "Energia", "Setup", "X", "Y", "Gantry/Colimador/Mesa (°)", "Filtro", "DFS (cm)", "DFI (cm)", "Dose diária (cGy)", "Dose total (cGy)", "Nº aplicações", "Profundidade (cm)", "Campo equivalente (cm²)", "Campo colimado (cm²)", "Algoritmo de cálculo", "PDP ou TMR", "Fator de calibração", "Fator abertura do colimador", "Fator retroespalhamento", "Fator bandeja", "Fator filtro", "Fator distância", "Fator off-axis", "UM XiO", "UM calculada", "Desvio UM (%)", "Dose calculada (cGy)", "Desvio Dose (%)", "")
+  rownames(TABELA_RESULTADOS) <- NUMERO_CAMPO_XIO
+  # Controle do tamanho de exibição da tabela de conferência
+  if (dim(NOME_CAMPO) <= 7) {
+    TAMANHO_FONTE <- 9
+  } else { TAMANHO_FONTE <- 7 }
+  
+  kable(t(TABELA_RESULTADOS), booktabs = T, linesep = "", "latex", digits = 3, align = "c") %>% kable_styling(latex_options = c("striped", "condensed"),  stripe_color = "#99FFFF", font_size = TAMANHO_FONTE) %>% row_spec(dim(TABELA_RESULTADOS)[2], bold=T, background = "white") %>% column_spec(1, bold = T, italic = T) %>% row_spec(13, hline_after = T) %>% row_spec(24, hline_after = T)%>% row_spec(27, hline_after = T, bold = T) %>% row_spec(29, hline_after = T, bold = T) %>% row_spec(16, hline_after = T)
+  } else {
+    colnames(TABELA_RESULTADOS) <- c("Nome do campo", "Energia", "Setup", "X1", "X2", "Y1", "Y2", "Gantry/Colimador/Mesa (°)", "Filtro", "DFS (cm)", "DFI (cm)", "Dose diária (cGy)", "Dose total (cGy)", "Nº aplicações", "Profundidade (cm)", "Campo equivalente (cm²)", "Campo colimado (cm²)", "Algoritmo de cálculo", "PDP ou TMR", "Fator de calibração", "Fator abertura do colimador", "Fator retroespalhamento", "Fator bandeja", "Fator filtro", "Fator distância", "Fator off-axis", "UM XiO", "UM calculada", "Desvio UM (%)", "Dose calculada (cGy)", "Desvio Dose (%)", "")
+  rownames(TABELA_RESULTADOS) <- NUMERO_CAMPO_XIO
+  
+  # Controle do tamanho de exibição da tabela de conferência
+  if (dim(NOME_CAMPO) <= 7) {
+    TAMANHO_FONTE <- 9
+  } else { TAMANHO_FONTE <- 7 }
+  
+  kable(t(TABELA_RESULTADOS), booktabs = T, linesep = "", "latex", digits = 3, align = "c") %>% kable_styling(latex_options = c("striped", "condensed"),  stripe_color = "#99FFFF", font_size = TAMANHO_FONTE) %>% row_spec(dim(TABELA_RESULTADOS)[2], bold=T, background = "white") %>% column_spec(1, bold = T, italic = T) %>% row_spec(15, hline_after = T) %>% row_spec(26, hline_after = T)%>% row_spec(29, hline_after = T, bold = T) %>% row_spec(31, hline_after = T, bold = T) %>% row_spec(18, hline_after = T)
+  }
+}
+```
+
+$\square$ A(s) curva(s) prescrita(s) e planejada(s) são as mesmas: _______________________________
+
+$\square$ A somatória das doses de tratamento (`r colSums(DOSE)` cGy) é aproximadamente igual ao somatório da razão entre dose e curva de prescrição.
+
+$\square$ Os tamanhos de campo e campos equivalentes e colimados estão condizentes com o planejado.
+
+$\square$ Demais parâmetros checados com o *source* e com o sistema de gerenciamento e foram inseridos corretamento no cabeçalho da ficha técnica.
+
+$\square$ O cálculo manual foi realizado com desvio $\leqslant 2,0\%$ no ponto de cálculo (Desvio calculado pelo conferidor de `r round((1 - (colSums(DOSE)/colSums(DOSE_CALCULADA))) * 100, 2)`%).
+
+Conferência aprovada: **$\square$ Integralmente     $\square$ Parcialmente.**
+
+Observações:
+
+`r if (BOLUS != "---") paste0("O campo possui Bolus de _______ cm.")`
+$~$
+
+$~$
+
+Checado por: ___________________________________ Conferência realizada em `r paste0(str_split(Sys.Date(), "-")[[1]][3], "/", str_split(Sys.Date(), "-")[[1]][2], "/", str_split(Sys.Date(), "-")[[1]][1])`.

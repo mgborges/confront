@@ -10,12 +10,6 @@ output:
 geometry: left=2cm,right=1cm,top=0.7cm,bottom=1cm
 ---
 
-<!-- Para executar: -->
-<!-- Rscript -e "rmarkdown::render('ExtractPDF.Rmd')" && evince ExtractPDF.pdf -->
-
-<!--"C:\Program Files\R\R-3.6.1\bin\Rscript.exe" -e "Sys.setenv(RSTUDIO_PANDOC='C:/Program Files/RStudio/bin/pandoc'); rmarkdown::render('C:/Users/mgborges/Dropbox/RADIOTERAPIA/CONFERIDOR_AUTO/PDFConferidor/ExtractPDF.Rmd')"  -->
-<!--start acrord32 /A "page=1" "C:\Users\mgborges\Dropbox\RADIOTERAPIA\CONFERIDOR_AUTO\PDFConferidor\ExtractPDF.pdf"-->
-
 \pagenumbering{gobble}
 
 ```{python, echo=F, warning=F}

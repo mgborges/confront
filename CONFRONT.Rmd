@@ -108,7 +108,7 @@ if (TIPOFEIXE == "ELETRONS") {
 
 \newpage
 
-![](HEADER.png)
+![](FIGs/HEADER.png)
 
 Nome: **`r NOME_PACIENTE`**, HC: **`r toString(HC)`**
 

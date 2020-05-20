@@ -95,6 +95,8 @@ if (length(grep("Bolus", texto)) == 0)
   DESVIOS_DIRETO <- (1 - UM_XiO/UM_CALCULADA_INT) * 100
   
   # CALCULO INVERSO PARA ELÉTRONS
+  # Este desvio deve ser calculado para as unidades que serão entregues 
+  # para o paciente, no caso, as do XiO
   DOSE_CALCULADA <- (UM_XiO * FRACOES) * (F_RENDIMENTO_ELETRONS * F_ELETRONS_XiO * F_DISTANCIA)
   DESVIOS_INVERSO <- (1 - DOSE/DOSE_CALCULADA) * 100
   

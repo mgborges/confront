@@ -19,13 +19,13 @@ arquivoPDF = filedialog.askopenfilename(filetypes=[("Arquivo PDF do XiO", ".pdf"
 ```
 
 ```{r, echo=FALSE, warning=F}
-source("PACOTES.R")
+source("bin/PACOTES.R")
 # Se houver modificação nas funções ou nas tabelas, descomentar as duas linhas abaixo.
-# source("FUNCOES.R")
-# source("TABELAS.R")
+# source("bin/FUNCOES.R")
+# source("bin/TABELAS.R")
 
 # Utilizar 'load("TABELAS.RData")' faz a execução ser mais rápida
-load("TABELAS.RData")
+load("bin/TABELAS.RData")
 ```
 
 ```{r, echo=FALSE, warning=F}
@@ -45,8 +45,8 @@ if (is.null(dim(paginas))) {
 ```
 
 ```{r, echo=FALSE, warning=F}
-source("SINTAXE.R")
-source("OPCOES_GENERICAS.R")
+source("bin/SINTAXE.R")
+source("bin/OPCOES_GENERICAS.R")
 ```
 
 ```{r, echo=FALSE, warning=F}
@@ -100,9 +100,9 @@ if ((dim(ENERGIA)[1]==1) & (BOLUS == "---")) {
 
 ```{r, echo=FALSE, warning=F}
 if (TIPOFEIXE == "ELETRONS") {
-  source("ELETRONS.R")
+  source("bin/ELETRONS.R")
 } else if (TIPOFEIXE == "FOTONS") {
-  source("FOTONS.R")
+  source("bin/FOTONS.R")
 }
 ```
 

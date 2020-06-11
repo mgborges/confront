@@ -45,4 +45,4 @@ colnames(FATOR_FILTRO_10) <- c(15.0, 30.0, 45.0, 60.0)
 rownames(FATOR_FILTRO_10) <- FATOR_FILTRO_10_CONES
 
 # SALVANDO IMAGEM DO R
-save.image(file = "TABELAS.RData")
+save.image(file = "bin/TABELAS.RData")

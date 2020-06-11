@@ -89,13 +89,11 @@ obterDadosRendimento <- function(TABELA, CAMPO, FATOR) {
 obterPontoCalculo <- function() {
   parametroDeBusca <- "X, Y"
   info <- NULL
-  for (numeroDaPagina in 1:numeroDePaginas) 
-  {
+  for (numeroDaPagina in 1:numeroDePaginas) {
     pagina <- retornarPagina(paginas, numeroDaPagina)
     numeroDaCOLUNA <- grep(parametroDeBusca, pagina)
     COLUNA <- strsplit(pagina[numeroDaCOLUNA], "  +")[[2]]
-    if (COLUNA[1] == "") 
-    {
+    if (COLUNA[1] == "") {
       info <- c(info, COLUNA[c(-1, -2)])
     } else {
       info <- c(info, COLUNA[-1])
@@ -115,8 +113,7 @@ obterPontoCalculo <- function() {
 obterPontoCalculoBOLUS <- function() {
   parametroDeBusca <- "X, Y, Z"
   info <- NULL
-  for (numeroDaPagina in 1:numeroDePaginas) 
-  {
+  for (numeroDaPagina in 1:numeroDePaginas) {
     pagina <- retornarPagina(paginas, numeroDaPagina)
     numeroDaCOLUNA <- grep(parametroDeBusca, pagina)[3]
     COLUNA <- strsplit(pagina[numeroDaCOLUNA], " ")[[1]][20]
@@ -135,13 +132,11 @@ obterPontoCalculoBOLUS <- function() {
 # Busca de parâmetros textuais dentro dos campos de página
 buscaDeParametros <- function(parametroDeBusca) {
   info <- NULL
-  for (numeroDaPagina in 1:numeroDePaginas) 
-  {
+  for (numeroDaPagina in 1:numeroDePaginas) {
     pagina <- retornarPagina(paginas, numeroDaPagina)
     numeroDaCOLUNA <- grep(parametroDeBusca, pagina)
     COLUNA <- strsplit(pagina[numeroDaCOLUNA], "  +")[[1]]
-    if (COLUNA[1] == "") 
-    {
+    if (COLUNA[1] == "") {
       info <- c(info, COLUNA[c(-1, -2)])
     } else {
       info <- c(info, COLUNA[-1])
@@ -155,13 +150,11 @@ buscaDeParametros <- function(parametroDeBusca) {
 # Busca de parâmetros textuais dentro dos campos de página retornando a segunda instância
 buscaDeParametros_2 <- function(parametroDeBusca) {
   info <- NULL
-  for (numeroDaPagina in 1:numeroDePaginas) 
-  {
+  for (numeroDaPagina in 1:numeroDePaginas) {
     pagina <- retornarPagina(paginas, numeroDaPagina)
     numeroDaCOLUNA <- grep(parametroDeBusca, pagina)
     COLUNA <- strsplit(pagina[numeroDaCOLUNA], "  +")[[2]]
-    if (COLUNA[1] == "") 
-    {
+    if (COLUNA[1] == "") {
       info <- c(info, COLUNA[c(-1, -2)])
     } else {
       info <- c(info, COLUNA[-1])
@@ -175,13 +168,11 @@ buscaDeParametros_2 <- function(parametroDeBusca) {
 # Busca de parâmetros numéricos simples dentro dos campos de página
 buscaDeParametrosNumericos <- function(parametroDeBusca) {
   info <- NULL
-  for (numeroDaPagina in 1:numeroDePaginas) 
-  {
+  for (numeroDaPagina in 1:numeroDePaginas) {
     pagina <- retornarPagina(paginas, numeroDaPagina)
     numeroDaCOLUNA <- grep(parametroDeBusca, pagina)
     COLUNA <- strsplit(pagina[numeroDaCOLUNA], "  +")[[1]]
-    if (COLUNA[1] == "") 
-    {
+    if (COLUNA[1] == "") {
       info <- c(info, as.numeric(COLUNA[c(-1, -2)]))
     } else {
       info <- c(info, as.numeric(COLUNA[-1]))
@@ -195,13 +186,11 @@ buscaDeParametrosNumericos <- function(parametroDeBusca) {
 # Busca de parâmetros textuais dentro dos campos de página BOLUS
 buscaDeParametrosBOLUS <- function(parametroDeBusca) {
   info <- NULL
-  for (numeroDaPagina in 1:numeroDePaginas) 
-  {
+  for (numeroDaPagina in 1:numeroDePaginas) {
     pagina <- retornarPagina(paginas, numeroDaPagina)
     numeroDaCOLUNA <- grep(parametroDeBusca, pagina)
     COLUNA <- strsplit(pagina[numeroDaCOLUNA], " +")[[1]]
-    if (COLUNA[1] == "") 
-    {
+    if (COLUNA[1] == "") {
       info <- c(info, COLUNA[c(-1, -2)])
     } else {
       info <- c(info, COLUNA[-1])
@@ -215,16 +204,13 @@ buscaDeParametrosBOLUS <- function(parametroDeBusca) {
 # Função implementada para ler PDP e TMR nos formatos expecíficos fornecidos (pode não se aplicar aos dados disponíveis para seu comissionamento)
 lerPDP_TMR <- function(arquivo) {
   pdp <- read.delim2(arquivo, skip = 13, header = F, dec = ".")
-  
   tamanhosDeCampo <- read.delim2(arquivo, skip = 12, header = F, dec = ".", nrows = 1)
   tamanhosDeCampo <- sapply(tamanhosDeCampo,function(x) {x <- gsub("-","",x)})
   tamanhosDeCampo <- sapply(tamanhosDeCampo,function(x) {x <- gsub("[.]","",x)})
   tamanhosDeCampo <- as.integer(tamanhosDeCampo)/10
   tamanhosDeCampo
-  
   pdp <- pdp/100
   pdp[,1] <- pdp[,1]*10
-  
   rownames(pdp) <- pdp[,1]
   pdp <- pdp[,-1]
   colnames(pdp) <- tamanhosDeCampo[-1]
@@ -236,37 +222,30 @@ obterOFFAxisCampoAberto <- function(TABELA, COLUNA, LINHA) {
   return((obterDadosTabela(TABELA, COLUNA, LINHA) + obterDadosTabela(TABELA, COLUNA, -LINHA))/2)
 }
 
-
 # Busca para os tamanhos de campo para campos assimétricos e simétricos no XiO. Note que todos os campos tem que ser ou SIMÉTRICOS ou ASSIMÉTRICOS
 TAMANHOS_DE_CAMPO <- function(paginas) {
   TMP <- t(as.data.frame(strsplit(sapply(buscaDeParametros("  Field Size"), function(x) {x <- gsub("/"," ",x)}), " ")))
-  if (dim(TMP)[2] == 4)
-  {
+  if (dim(TMP)[2] == 4) {
     TMP_X <- sapply(buscaDeParametros("X1/X2"), function(x) {x <- gsub("X1/X2","",x)})
     TMP_X <- t(as.data.frame(strsplit(TMP_X, "/")))
     TMP_Y <- sapply(buscaDeParametros("Y2/Y1"), function(x) {x <- gsub("Y2/Y1","",x)})
     TMP_Y <- t(as.data.frame(strsplit(TMP_Y, "/")))
-    
     X1 <- as.numeric(TMP_X[,1])
     X2 <- as.numeric(TMP_X[,2])
     Y2 <- as.numeric(TMP_Y[,1])
     Y1 <- as.numeric(TMP_Y[,2])
-    
     return(data.frame(X1, X2, Y1, Y2))
   } else {
     TMP_X <- sapply(buscaDeParametros(" Field Size"), function(x) {x <- gsub("X ","",x)})
     TMP_Y <- sapply(buscaDeParametros_2(" Field Size"), function(x) {x <- gsub("Y ","",x)})
-    
     X <- as.numeric(TMP_X)
     Y <- as.numeric(TMP_Y)
-    
     return(data.frame(X, Y))
   }
 }
 
 # Obtenção da distância fonte-superfície (DFS)
-obterSSD <- function()
-{
+obterSSD <- function() {
   DFS_SSD <- sapply(buscaDeParametros("SSD/Wt"), function(x) {x <- gsub("/"," ",x)})
   DFS_SSD <- t(as.data.frame(strsplit(DFS_SSD, " ")))
   DFS_SSD <- data.frame(as.numeric(DFS_SSD[,2])); colnames(DFS_SSD) <- "DFS_SSD"
@@ -285,19 +264,16 @@ obterFatorFiltro_OFFAXIS <- function(ENERGIA, FILTRO, DIRECAO_CUNHA, PROFUNDIDAD
 {
   FOA_FILTRO <- NULL
   ORIENTACAO_CUNHA <- NULL
-  if (DIRECAO_CUNHA == "Grossa")
-  {
+  if (DIRECAO_CUNHA == "Grossa") {
     ORIENTACAO_CUNHA <- -1
   } else ORIENTACAO_CUNHA <- 1
   
-  if (ENERGIA == "6 MV")
-  {
+  if (ENERGIA == "6 MV")  {
     if (FILTRO == "15") FOA_FILTRO <- obterDadosTabela(TABELA = FOA_W15_06, LINHA = ORIENTACAO_CUNHA*DISTANCIA, COLUNA = PROFUNDIDADE)
     if (FILTRO == "30") FOA_FILTRO <- obterDadosTabela(TABELA = FOA_W30_06, LINHA = ORIENTACAO_CUNHA*DISTANCIA, COLUNA = PROFUNDIDADE)
     if (FILTRO == "45") FOA_FILTRO <- obterDadosTabela(TABELA = FOA_W45_06, LINHA = ORIENTACAO_CUNHA*DISTANCIA, COLUNA = PROFUNDIDADE)
     if (FILTRO == "60") FOA_FILTRO <- obterDadosTabela(TABELA = FOA_W60_06, LINHA = ORIENTACAO_CUNHA*DISTANCIA, COLUNA = PROFUNDIDADE)
-  } else if (ENERGIA == "10 MV")
-  {
+  } else if (ENERGIA == "10 MV") {
     if (FILTRO == "15") FOA_FILTRO <- obterDadosTabela(TABELA = FOA_W15_10, LINHA = ORIENTACAO_CUNHA*DISTANCIA, COLUNA = PROFUNDIDADE)
     if (FILTRO == "30") FOA_FILTRO <- obterDadosTabela(TABELA = FOA_W30_10, LINHA = ORIENTACAO_CUNHA*DISTANCIA, COLUNA = PROFUNDIDADE)
     if (FILTRO == "45") FOA_FILTRO <- obterDadosTabela(TABELA = FOA_W45_10, LINHA = ORIENTACAO_CUNHA*DISTANCIA, COLUNA = PROFUNDIDADE)
@@ -307,7 +283,6 @@ obterFatorFiltro_OFFAXIS <- function(ENERGIA, FILTRO, DIRECAO_CUNHA, PROFUNDIDAD
 }
 
 # Função genérica para consulta das tabelas de cálculo durante o cálculo manual das UMs
-dadosFicha <- function(TABELA, RENDIMENTO, TAMANHOCAMPO, EQUIVALENTE, PROFUNDIDADE)
-{
+dadosFicha <- function(TABELA, RENDIMENTO, TAMANHOCAMPO, EQUIVALENTE, PROFUNDIDADE) {
   return(rbind(obterDadosTabela(TABELA = TABELA, EQUIVALENTE, PROFUNDIDADE), obterDadosRendimento(TABELA = RENDIMENTO, TAMANHOCAMPO, FATOR = 1) , obterDadosRendimento(TABELA = RENDIMENTO, EQUIVALENTE, FATOR = 2)))
 }

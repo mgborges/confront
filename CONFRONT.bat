@@ -1,1 +1,1 @@
-"C:\Program Files\R\R-4.0.0\bin\Rscript.exe" -e "Sys.setenv(RSTUDIO_PANDOC='C:/Program Files/RStudio/bin/pandoc'); rmarkdown::render('C:/Users/Teste/Documents/TCC_MURILO/confront-0.1-beta/CONFRONT.Rmd')" && start acrord32 /A "page=1" "C:\Users\Teste\Documents\TCC_MURILO\confront-0.1-beta\CONFRONT.pdf"
+"C:\Program Files\R\R-4.0.0\bin\Rscript.exe" -e "Sys.setenv(RSTUDIO_PANDOC='C:/Program Files/RStudio/bin/pandoc'); rmarkdown::render('C:/Users/Teste/confront-0.1-beta/CONFRONT.Rmd')" && start acrord32 /A "page=1" "C:\Users\Teste\confront-0.1-beta\CONFRONT.pdf"

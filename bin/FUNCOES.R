@@ -1,4 +1,4 @@
-# Retorna conteúdo da página sem o cabeçalho
+# Retorna conteudo da pagina sem o cabecalho
 retornarPagina <- function(paginas, numeroPagina) {
   if (numeroDePaginas == 1) {
     pagina <- paginas
@@ -8,7 +8,7 @@ retornarPagina <- function(paginas, numeroPagina) {
   return(pagina)
 }
 
-# Retorna o cabeçalho de uma página sem seu conteúdo
+# Retorna o cabecalho de uma pagina sem seu conteudo
 retornarCabecalho <- function(paginas, numeroPagina) {
   if (numeroDePaginas == 1) {
     pagina <- paginas
@@ -18,7 +18,7 @@ retornarCabecalho <- function(paginas, numeroPagina) {
   return(cabecalho)
 }
 
-# Obtem as posições dentro de um data-frame para uma determinada observação, seja nas linhas ou colunas
+# Obtem as posicoes dentro de um data-frame para uma determinada observacao, seja nas linhas ou colunas
 obterPosicoes <- function (CAMPOS, CAMPO) {
   POSICAO <- CAMPOS >= CAMPO & CAMPOS <= CAMPO
   if (sum(POSICAO)==1) {
@@ -70,7 +70,7 @@ obterFatorFiltro <- function(TABELA_FATOR_FILTRO, FILTRO, CAMPO) {
   return(as.numeric(OBSERVACOES))
 }
 
-# Obtem dados das tabelas de rendimento, onde os fatores são: CAMPO = 1; ESPALHAMENTO = 2; RENDIMENTO = 3
+# Obtem dados das tabelas de rendimento, onde os fatores sao: CAMPO = 1; ESPALHAMENTO = 2; RENDIMENTO = 3
 obterDadosRendimento <- function(TABELA, CAMPO, FATOR) {
   CAMPOS <- TABELA$Campo
   OBSERVACOES <- as.data.frame(TABELA[obterPosicoes(CAMPOS, CAMPO), FATOR + 1])
@@ -85,7 +85,7 @@ obterDadosRendimento <- function(TABELA, CAMPO, FATOR) {
   return(as.numeric(OBSERVACOES))
 }
 
-# Obtem coordenadas do ponto de cálculo
+# Obtem coordenadas do ponto de calculo
 obterPontoCalculo <- function() {
   parametroDeBusca <- "X, Y"
   info <- NULL
@@ -109,7 +109,7 @@ obterPontoCalculo <- function() {
   return(data.frame(X, Y, Z))
 }
 
-# OBTER PONTO DE CÁLCULO QUANDO POSSUI BOLUS
+# OBTER PONTO DE CaLCULO QUANDO POSSUI BOLUS
 obterPontoCalculoBOLUS <- function() {
   parametroDeBusca <- "X, Y, Z"
   info <- NULL
@@ -129,7 +129,7 @@ obterPontoCalculoBOLUS <- function() {
   return(data.frame(X, Y, Z))
 }
 
-# Busca de parâmetros textuais dentro dos campos de página
+# Busca de parametros textuais dentro dos campos de pagina
 buscaDeParametros <- function(parametroDeBusca) {
   info <- NULL
   for (numeroDaPagina in 1:numeroDePaginas) {
@@ -147,7 +147,7 @@ buscaDeParametros <- function(parametroDeBusca) {
   return(info)
 }
 
-# Busca de parâmetros textuais dentro dos campos de página retornando a segunda instância
+# Busca de parametros textuais dentro dos campos de pagina retornando a segunda instancia
 buscaDeParametros_2 <- function(parametroDeBusca) {
   info <- NULL
   for (numeroDaPagina in 1:numeroDePaginas) {
@@ -165,7 +165,7 @@ buscaDeParametros_2 <- function(parametroDeBusca) {
   return(info)
 }
 
-# Busca de parâmetros numéricos simples dentro dos campos de página
+# Busca de parametros numericos simples dentro dos campos de pagina
 buscaDeParametrosNumericos <- function(parametroDeBusca) {
   info <- NULL
   for (numeroDaPagina in 1:numeroDePaginas) {
@@ -183,7 +183,7 @@ buscaDeParametrosNumericos <- function(parametroDeBusca) {
   return(info)
 }
 
-# Busca de parâmetros textuais dentro dos campos de página BOLUS
+# Busca de parametros textuais dentro dos campos de pagina BOLUS
 buscaDeParametrosBOLUS <- function(parametroDeBusca) {
   info <- NULL
   for (numeroDaPagina in 1:numeroDePaginas) {
@@ -201,7 +201,7 @@ buscaDeParametrosBOLUS <- function(parametroDeBusca) {
   return(info)
 }
 
-# Função implementada para ler PDP e TMR nos formatos expecíficos fornecidos (pode não se aplicar aos dados disponíveis para seu comissionamento)
+# Funcao implementada para ler PDP e TMR nos formatos expecificos fornecidos (pode nao se aplicar aos dados disponiveis para seu comissionamento)
 lerPDP_TMR <- function(arquivo) {
   pdp <- read.delim2(arquivo, skip = 13, header = F, dec = ".")
   tamanhosDeCampo <- read.delim2(arquivo, skip = 12, header = F, dec = ".", nrows = 1)
@@ -217,12 +217,12 @@ lerPDP_TMR <- function(arquivo) {
   return(pdp)
 }
 
-# Retorna os valores do fator Off-axis de campo aberto fazendo a média entre os valores no eixo positivo e negativo de deslocamento
+# Retorna os valores do fator Off-axis de campo aberto fazendo a media entre os valores no eixo positivo e negativo de deslocamento
 obterOFFAxisCampoAberto <- function(TABELA, COLUNA, LINHA) {
   return((obterDadosTabela(TABELA, COLUNA, LINHA) + obterDadosTabela(TABELA, COLUNA, -LINHA))/2)
 }
 
-# Busca para os tamanhos de campo para campos assimétricos e simétricos no XiO. Note que todos os campos tem que ser ou SIMÉTRICOS ou ASSIMÉTRICOS
+# Busca para os tamanhos de campo para campos assimetricos e simetricos no XiO. Note que todos os campos tem que ser ou SIMeTRICOS ou ASSIMeTRICOS
 TAMANHOS_DE_CAMPO <- function(paginas) {
   TMP <- t(as.data.frame(strsplit(sapply(buscaDeParametros("  Field Size"), function(x) {x <- gsub("/"," ",x)}), " ")))
   if (dim(TMP)[2] == 4) {
@@ -244,7 +244,7 @@ TAMANHOS_DE_CAMPO <- function(paginas) {
   }
 }
 
-# Obtenção da distância fonte-superfície (DFS)
+# Obtencao da distancia fonte-superficie (DFS)
 obterSSD <- function() {
   DFS_SSD <- sapply(buscaDeParametros("SSD/Wt"), function(x) {x <- gsub("/"," ",x)})
   DFS_SSD <- t(as.data.frame(strsplit(DFS_SSD, " ")))
@@ -259,7 +259,7 @@ obterSSD <- function() {
   return(SSD)
 }
 
-# Retorna o valor do fator Off-Axis na direção da cunha para um campo com filtro
+# Retorna o valor do fator Off-Axis na direcao da cunha para um campo com filtro
 obterFatorFiltro_OFFAXIS <- function(ENERGIA, FILTRO, DIRECAO_CUNHA, PROFUNDIDADE, DISTANCIA)
 {
   FOA_FILTRO <- NULL
@@ -282,7 +282,7 @@ obterFatorFiltro_OFFAXIS <- function(ENERGIA, FILTRO, DIRECAO_CUNHA, PROFUNDIDAD
   return(FOA_FILTRO)
 }
 
-# Função genérica para consulta das tabelas de cálculo durante o cálculo manual das UMs
+# Funcao generica para consulta das tabelas de calculo durante o calculo manual das UMs
 dadosFicha <- function(TABELA, RENDIMENTO, TAMANHOCAMPO, EQUIVALENTE, PROFUNDIDADE) {
   return(rbind(obterDadosTabela(TABELA = TABELA, EQUIVALENTE, PROFUNDIDADE), obterDadosRendimento(TABELA = RENDIMENTO, TAMANHOCAMPO, FATOR = 1) , obterDadosRendimento(TABELA = RENDIMENTO, EQUIVALENTE, FATOR = 2)))
 }

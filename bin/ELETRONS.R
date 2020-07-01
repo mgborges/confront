@@ -1,7 +1,6 @@
-# Se não tenho Bolus...
-if (length(grep("Bolus", texto)) == 0)
-{
-  # Tamanho do cone de elétrons
+# Se nao tenho Bolus...
+if (length(grep("Bolus", texto)) == 0) {
+  # Tamanho do cone de eletrons
   CONE <- buscaDeParametrosNumericos('Field Size [(]')
   
   # SSD ELETRONS
@@ -9,7 +8,7 @@ if (length(grep("Bolus", texto)) == 0)
   SSD <- t(as.data.frame(strsplit(SSD, " ")))
   SSD <- data.frame(as.numeric(SSD[,2])); colnames(SSD) <- "SSD"
   
-  # Fator para campos de elétrons do XiO
+  # Fator para campos de eletrons do XiO
   F_ELETRONS_XiO <- buscaDeParametrosNumericos('At effective')/100
   
   # Unidades monitoras do XiO
@@ -18,24 +17,23 @@ if (length(grep("Bolus", texto)) == 0)
   
   F_RENDIMENTO_ELETRONS <- NULL
   F_DISTANCIA <- NULL
-  for (i in 1:NUMERO_CAMPOS)
-  {
+  for (i in 1:NUMERO_CAMPOS) {
     VALOR_ENERGIA <- sapply(ENERGIA[i,1], function(x) {x <- gsub(" MeV", "",x)})
     VALOR_CONE <- as.character(CONE[i,1])
     F_RENDIMENTO_ELETRONS[i] <- ELETRONS[VALOR_CONE, VALOR_ENERGIA]
     F_DISTANCIA[i] <- ((100 + PROFUNDIDADE[i,1])/(SSD[i,1] + PROFUNDIDADE[i,1]))^2
   }
   
-  # CALCULO DIRETO PARA ELÉTRONS
+  # CALCULO DIRETO PARA ELeTRONS
   UM_CALCULADA <- (DOSE / FRACOES) / (F_RENDIMENTO_ELETRONS * F_ELETRONS_XiO * F_DISTANCIA)
   UM_CALCULADA_INT <- round(UM_CALCULADA, digits=0)
   DESVIOS_DIRETO <- (1 - UM_XiO/UM_CALCULADA_INT) * 100
   
-  # CALCULO INVERSO PARA ELÉTRONS
+  # CALCULO INVERSO PARA ELeTRONS
   DOSE_CALCULADA <- (UM_XiO * FRACOES) * (F_RENDIMENTO_ELETRONS * F_ELETRONS_XiO * F_DISTANCIA)
   DESVIOS_INVERSO <- (1 - DOSE/DOSE_CALCULADA) * 100
   
-  # Definição dos critérios de aprovação ou não do cálculo
+  # Definicao dos criterios de aprovacao ou nao do calculo
   APROVACAO <- (abs(DESVIOS_DIRETO)>=DESVIO_ACEITO) + (abs(DESVIOS_INVERSO)>=DESVIO_ACEITO)
   APROVACAO[APROVACAO==0] <- "OK"
   APROVACAO[APROVACAO!="OK"] <- "ERRO"
@@ -47,7 +45,7 @@ if (length(grep("Bolus", texto)) == 0)
   
   FRACOES <- t(as.data.frame(strsplit(sapply(buscaDeParametrosBOLUS("Weight ")[3,], function(x) {x <- gsub("/"," ",x)}), " "))[2,])
   FRACOES <- as.data.frame(as.numeric(as.character(FRACOES[1,])))
-  rownames (FRACOES) <- NULL; colnames (FRACOES) <- "Frações"
+  rownames (FRACOES) <- NULL; colnames (FRACOES) <- "Fracoes"
   
   GANTRY <- t(as.data.frame(strsplit(sapply(buscaDeParametros("Gantry"), function(x) {x <- gsub("/"," ",x)}), " "))[1,])
   GANTRY <- as.data.frame(as.numeric(as.character(GANTRY[1,])))
@@ -59,7 +57,7 @@ if (length(grep("Bolus", texto)) == 0)
   
   CONE <- buscaDeParametrosNumericos('Field Size [(]')
   
-  # Fator para campos de elétrons do XiO
+  # Fator para campos de eletrons do XiO
   F_ELETRONS_XiO <- t(as.data.frame(strsplit(sapply(buscaDeParametrosBOLUS("At effective")[2,], function(x) {x <- gsub("/"," ",x)}), " "))[3,])
   F_ELETRONS_XiO <- as.data.frame(as.numeric(as.character(F_ELETRONS_XiO[1,])))
   rownames (F_ELETRONS_XiO) <- NULL; colnames (F_ELETRONS_XiO) <- "Colimador"
@@ -81,26 +79,25 @@ if (length(grep("Bolus", texto)) == 0)
   
   F_RENDIMENTO_ELETRONS <- NULL
   F_DISTANCIA <- NULL
-  for (i in 1:NUMERO_CAMPOS)
-  {
+  for (i in 1:NUMERO_CAMPOS) {
     VALOR_ENERGIA <- sapply(ENERGIA[i,1], function(x) {x <- gsub(" MeV", "",x)})
     VALOR_CONE <- as.character(CONE[i,1])
     F_RENDIMENTO_ELETRONS[i] <- ELETRONS[VALOR_CONE, VALOR_ENERGIA]
     F_DISTANCIA[i] <- ((100 + PROFUNDIDADE[i,1])/(SSD[i,1] + PROFUNDIDADE[i,1]))^2
   }
   
-  # CALCULO DIRETO PARA ELÉTRONS
+  # CALCULO DIRETO PARA ELeTRONS
   UM_CALCULADA <- (DOSE / FRACOES) / (F_RENDIMENTO_ELETRONS * F_ELETRONS_XiO * F_DISTANCIA)
   UM_CALCULADA_INT <- round(UM_CALCULADA, digits=0)
   DESVIOS_DIRETO <- (1 - UM_XiO/UM_CALCULADA_INT) * 100
   
-  # CALCULO INVERSO PARA ELÉTRONS
-  # Este desvio deve ser calculado para as unidades que serão entregues 
+  # CALCULO INVERSO PARA ELeTRONS
+  # Este desvio deve ser calculado para as unidades que serao entregues 
   # para o paciente, no caso, as do XiO
   DOSE_CALCULADA <- (UM_XiO * FRACOES) * (F_RENDIMENTO_ELETRONS * F_ELETRONS_XiO * F_DISTANCIA)
   DESVIOS_INVERSO <- (1 - DOSE/DOSE_CALCULADA) * 100
   
-  # Definição dos critérios de aprovação ou não do cálculo
+  # Definicao dos criterios de aprovacao ou nao do calculo
   APROVACAO <- (abs(DESVIOS_DIRETO)>=DESVIO_ACEITO) + (abs(DESVIOS_INVERSO)>=DESVIO_ACEITO)
   APROVACAO[APROVACAO==0] <- "OK"
   APROVACAO[APROVACAO!="OK"] <- "ERRO"

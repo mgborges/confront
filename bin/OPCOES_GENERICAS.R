@@ -1,7 +1,7 @@
-# Identificação do número de campos no qual ocorre a iteração
+# Identificacao do numero de campos no qual ocorre a iteracao
 NUMERO_CAMPOS <- dim(ENERGIA)[1]
 
-# Informações que constam no cabeçalho do PDF
+# Informacoes que constam no cabecalho do PDF
 CABECALHO <- retornarCabecalho(paginas, 1)
 NOME_PACIENTE <- as.character(sapply(CABECALHO[grep("Name", retornarCabecalho(paginas, 1))], function(x) {x <- gsub("Name: ","",x)}))
 
@@ -14,7 +14,7 @@ if(ID_PLANO == "Plan ID:") ID_PLANO <- "---"
 
 DATA_APROVACAO_PLANO <- as.character(sapply(CABECALHO[grep("Treatment Date", retornarCabecalho(paginas, 1))], function(x) {x <- gsub("Treatment Date: ","",x)}))
 
-# Define se o setup é SSD ou SAD
+# Define se o setup e SSD ou SAD
 SETUP <- t(as.data.frame(strsplit(sapply(buscaDeParametros("Setup"), function(x) {x <- gsub("/"," ",x)}), " "))[1,])
 rownames (SETUP) <- NULL; colnames (SETUP) <- "Setup"
 
@@ -25,11 +25,11 @@ if (dim(NOME_CAMPO)[1]!=dim(ENERGIA)[1]) {
 }
 colnames(NOME_CAMPO) <- "Nome do Campo"
 
-# Angulação da mesa
+# Angulacao da mesa
 MESA <- buscaDeParametrosNumericos("Couch")
 colnames(MESA) <- "Mesa"
 
-# Profundidade do cálculo
+# Profundidade do calculo
 PROFUNDIDADE <- buscaDeParametrosNumericos("Effective; skin")
 colnames(PROFUNDIDADE) <- "Profundidade"
 
@@ -41,7 +41,7 @@ Y <- as.numeric(ISO[,2])
 Z <- as.numeric(ISO[,3])
 ISO <- data.frame(X, Y, Z)
 
-# Coordenada do ponto de cálculo
+# Coordenada do ponto de calculo
 PONTO_DE_CALCULO <- obterPontoCalculo()
 
 # Numero dos campos inseridos no XiO
@@ -59,7 +59,7 @@ if (numeroDePaginas > 1)
   NUMERO_CAMPO_XIO <- data.frame(strsplit(sapply(paginas[grep("Beam Number", paginas)+1,], function(x) {x <- gsub("  +"," ",x)}), " "))[-1,]
 }
 
-# Algoritmo de cálculo
+# Algoritmo de calculo
 ALGORITMO_CALCULO <- buscaDeParametros("Calc algorithm")
 ALGORITMO_CALCULO <- as.data.frame(sapply(ALGORITMO_CALCULO, function(x) {x <- gsub("Convolution","Conv.",x)}))
 ALGORITMO_CALCULO <- as.data.frame(sapply(ALGORITMO_CALCULO, function(x) {x <- gsub("Clarkson","Clark.",x)}))

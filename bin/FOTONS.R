@@ -149,7 +149,7 @@ if (length(grep("Bolus", texto)) == 0) {
         if (ISO[i,] - PONTO_DE_CALCULO[i,] == c(0,0,0)) {
           F_OFF_AXIS[i] <- 1
         } else {
-          F_OFF_AXIS[i] <- obterOFFAxisCampoAberto(TABELA = FOA_OPEN_06, COLUNA = PROFUNDIDADE[i,1], LINHA = OFF_AXIS_CAMPO_ABERTO[i,1])
+          F_OFF_AXIS[i] <- obterOFFAxisCampoAberto(TABELA = FOA_OPEN_10, COLUNA = PROFUNDIDADE[i,1], LINHA = OFF_AXIS_CAMPO_ABERTO[i,1])
         }
       } else {
         F_FILTRO[i] <- obterFatorFiltro(TABELA = FATOR_FILTRO_10, FILTRO = FILTROS[i,1], CAMPO = Campo_COLIMADO_XiO[i,1])

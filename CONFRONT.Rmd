@@ -20,7 +20,7 @@ arquivoPDF = filedialog.askopenfilename(filetypes=[("Arquivo PDF do XiO", ".pdf"
 
 ```{r, echo=FALSE, warning=F, results=FALSE, message=FALSE}
 source("bin/PACOTES.R")
-# Se houver modificacão nas funcoes ou nas tabelas, descomentar as duas linhas abaixo.
+# Se houver modificacão nas funcoes ou nas tabelas, descomentar as duas linhas abaixo. 
 # source("bin/FUNCOES.R")
 # source("bin/TABELAS.R")
 

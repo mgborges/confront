@@ -83,7 +83,9 @@ Abaixo listo algumas destas funcionalidades com exemplos:
         * Note que o mesmo comando pode ser executado de forma simplificada como:
         * `dadosFicha(TMR_OPEN_06, RENDIMENTO_06, 15, 13, 5.5)`
 \
+
 \
+
 * Obtenção da PDP, Fator abertura do colimador e Fator retroespalhamento
     * Suponha um campo equivalente igual a 7 cm² e um campo colimado de 6 cm². A profundidade é 10 cm e a energia é 10 MV:
         * ```dadosFicha(TABELA = PDP_OPEN_10, RENDIMENTO = RENDIMENTO_10, TAMANHOCAMPO = 7, EQUIVALENTE = 6, PROFUNDIDADE = 10)```
@@ -91,7 +93,9 @@ Abaixo listo algumas destas funcionalidades com exemplos:
         * Note que o mesmo comando pode ser executado de forma simplificada como:
         * `dadosFicha(PDP_OPEN_10, RENDIMENTO_10, 7, 6, 10)`
 \
-\   
+
+\
+
 * Obtenção do fator filtro
     * Suponha um campo colimado de 6 cm². O filtro de 45° e a energia é 6 MV:
         * ```obterFatorFiltro(TABELA_FATOR_FILTRO = FATOR_FILTRO_06, FILTRO = 45, CAMPO = 6)```
@@ -99,7 +103,9 @@ Abaixo listo algumas destas funcionalidades com exemplos:
         * Note que o mesmo comando pode ser executado de forma simplificada como:
         * `obterFatorFiltro(FATOR_FILTRO_06, 45, 6)`
 \
+
 \
+
 * Obtenção do fator off-axis para campo aberto
     * Suponha um off-axis de 6 cm, na profundidade de 2 cm para energia de 6 MV:
         * `obterOFFAxisCampoAberto(TABELA = FOA_OPEN_06, LINHA = 6, COLUNA = 2)`
@@ -107,7 +113,9 @@ Abaixo listo algumas destas funcionalidades com exemplos:
         * Note que o mesmo comando pode ser executado de forma simplificada como:
         * `obterOFFAxisCampoAberto(FOA_OPEN_06, 6, 2)`
 \
-\    
+
+\
+
 * Obtenção do fator rendimento para elétrons
     * Suponha um cone 10x10 cm² e energia de 12 MeV:
         * `obterDadosTabela(TABELA = ELETRONS, COLUNA = 12, LINHA = 10)`

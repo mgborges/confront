@@ -77,6 +77,7 @@ Salve o arquivo .bat; Clique com o botão direito do mouse e crie um atalho para
 Algumas funções disponíveis podem ser interessantes para o processo de cálculo e/ou conferência manual ou 2D. 
 
 Abaixo listo algumas destas funcionalidades com exemplos:
+\
 
 * Obtenção da TPR, Fator abertura do colimador e Fator retroespalhamento
     * Suponha um campo equivalente igual a 15 cm² e um campo colimado de 13 cm². A profundidade é 5,5 cm e a energia é 6 MV:
@@ -84,8 +85,6 @@ Abaixo listo algumas destas funcionalidades com exemplos:
         * Retorna: `TMR = 0.9205; Sc = 1.0220; Sp = 1.0080`;
         * Note que o mesmo comando pode ser executado de forma simplificada como:
         * `dadosFicha(TMR_OPEN_06, RENDIMENTO_06, 15, 13, 5.5)`
-\
-
 \
 
 * Obtenção da PDP, Fator abertura do colimador e Fator retroespalhamento
@@ -96,16 +95,12 @@ Abaixo listo algumas destas funcionalidades com exemplos:
         * `dadosFicha(PDP_OPEN_10, RENDIMENTO_10, 7, 6, 10)`
 \
 
-\
-
 * Obtenção do fator filtro
     * Suponha um campo colimado de 6 cm². O filtro de 45° e a energia é 6 MV:
         * ```obterFatorFiltro(TABELA_FATOR_FILTRO = FATOR_FILTRO_06, FILTRO = 45, CAMPO = 6)```
         * Retorna: `0.49068`;
         * Note que o mesmo comando pode ser executado de forma simplificada como:
         * `obterFatorFiltro(FATOR_FILTRO_06, 45, 6)`
-\
-
 \
 
 * Obtenção do fator off-axis para campo aberto
@@ -116,14 +111,13 @@ Abaixo listo algumas destas funcionalidades com exemplos:
         * `obterOFFAxisCampoAberto(FOA_OPEN_06, 6, 2)`
 \
 
-\
-
 * Obtenção do fator rendimento para elétrons
     * Suponha um cone 10x10 cm² e energia de 12 MeV:
         * `obterDadosTabela(TABELA = ELETRONS, COLUNA = 12, LINHA = 10)`
         * Retorna: `1.011534`;
         * Note que o mesmo comando pode ser executado de forma simplificada como:
         * `obterDadosTabela(ELETRONS, 12, 10)`
+\
 
 ## Observação para campos com bólus e feixes mistos
 

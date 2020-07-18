@@ -8,6 +8,12 @@ O CONFRONT é um conferidor automático para o cálculo das unidades monitoras e
 
 Abaixo é descrito o processo de instalação para o Windows. Para Linux e Mac o processo de instalação deve ser adaptado.
 
+Você também pode contar com vídeos com o passo-a-passo do processo de instalação no Windows:
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLi47ZczgdsHeVEIuRaNJRtDqjFl5L3IbU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
 Antes da instalação, certifique-se de instalar os seguintes programas:
 
 - [MikTex](https://miktex.org/download)
@@ -130,6 +136,22 @@ Esta ferramenta é capaz de realizar a conferência para um campo com bólus, ma
 Esta ferramenta não é capaz de realizar a conferência para feixes mistos. Desta forma, você deve considerar os campos de elétrons e fótons separados e considerar a dose no isocentro como a somatória da contribuição para cada um dos campos.
 
 E atenção! Não nos responsabilizamos por qualquer erro ou consequência da utilização desta ferramenta, bem como sua modificação e implementação.
+
+## Considerações Éticas
+
+Este projeto foi aprovado pelo Comitê de Ética em Pesquisa da Universidade Estadual de Campinas:
+
+* **Título da Pesquisa**: PROPOSTA E IMPLEMENTAÇÃO DE UM CONFERIDOR AUTOMÁTICO DE CÁLCULO A PARTIR DO XiO
+
+* **Pesquisador Responsável**: Murilo Guimarães Borges
+
+* **CAAE**: 33408620.1.0000.5404
+
+* **Submetido em**: 03/07/2020
+
+* **Instituição Proponente**: Hospital de Clínicas - UNICAMP
+
+* **Situação da Versão do Projeto**: Aprovado
 
 ## Quer utilizar esta ferramenta em seu serviço? :clap: Sinta-se _open-source_!
 

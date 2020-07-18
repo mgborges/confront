@@ -8,11 +8,7 @@ O CONFRONT é um conferidor automático para o cálculo das unidades monitoras e
 
 Abaixo é descrito o processo de instalação para o Windows. Para Linux e Mac o processo de instalação deve ser adaptado.
 
-Você também pode contar com vídeos com o passo-a-passo do processo de instalação no Windows:
-
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLi47ZczgdsHeVEIuRaNJRtDqjFl5L3IbU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</center>
+Você também pode contar com vídeos com o passo-a-passo do processo de instalação no Windows [acessando esta playlist do YouTube](https://www.youtube.com/playlist?list=PLi47ZczgdsHeVEIuRaNJRtDqjFl5L3IbU).
 
 Antes da instalação, certifique-se de instalar os seguintes programas:
 

@@ -40,7 +40,7 @@ obterDadosTabela <- function(TABELA, COLUNA, LINHA) {
     LINHA2 <- as.numeric(rownames(OBSERVACOES))[2]
     VALOR1 <- OBSERVACOES[1,]
     VALOR2 <- OBSERVACOES[2,]
-    OBSERVACOES <- as.data.frame(VALOR1 + (LINHA-LINHA1)*-(VALOR1-VALOR2)/(LINHA2-LINHA1))
+    OBSERVACOES <- as.data.frame((VALOR1 + VALOR2)/2)
   }
   # COLUNA
   if (dim(OBSERVACOES)[2]==2) {
@@ -48,7 +48,7 @@ obterDadosTabela <- function(TABELA, COLUNA, LINHA) {
     COLUNA2 <- as.numeric(colnames(OBSERVACOES))[2]
     VALOR1 <- OBSERVACOES[,1]
     VALOR2 <- OBSERVACOES[,2]
-    OBSERVACOES <- as.data.frame(VALOR1 + (COLUNA-COLUNA1)*-(VALOR1-VALOR2)/(COLUNA2-COLUNA1))
+    OBSERVACOES <- as.data.frame((VALOR1 + VALOR2)/2)
   }
   return(as.numeric(OBSERVACOES))
 }

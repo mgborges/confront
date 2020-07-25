@@ -20,6 +20,7 @@ arquivoPDF = filedialog.askopenfilename(filetypes=[("Arquivo PDF do XiO", ".pdf"
 
 ```{r, echo=FALSE, warning=F, results=FALSE, message=FALSE}
 source("bin/PACOTES.R")
+
 # Se houver modificacão nas funcoes ou nas tabelas, descomentar as duas linhas abaixo. 
 # source("bin/FUNCOES.R")
 # source("bin/TABELAS.R")
@@ -29,7 +30,7 @@ load("bin/TABELAS.RData")
 ```
 
 ```{r, echo=FALSE, warning=F}
-# arquivoPDF <- "EXEMPLO_FOTONS.pdf"
+# arquivoPDF <- "Exemplos/TESTE_FOTONS.pdf"
 arquivoPDF <- py$arquivoPDF
 
 # Manipulacão do texto e das paginas contidas do PDF

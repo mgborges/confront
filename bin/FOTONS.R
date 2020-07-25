@@ -66,7 +66,7 @@ if (length(grep("Bolus", texto)) == 0) {
     VETOR_RODADO <- VETOR_DISTANCIA %*% ROT_GRANTRY %*% ROT_MESA
     VETOR_PROJETADO <- VETOR_RODADO * (cbind(sin(G) , 1,  cos(G)) %*% ROT_GRANTRY %*% ROT_COL)
     
-    VETOR_FILTRO <- cbind(1,0,0)
+    VETOR_FILTRO <- cbind(1,-1,0)
     if (rowSums(VETOR_PROJETADO*VETOR_FILTRO) > 0 & ORIENTACAO_FILTROS[i,1] == "Left")   {
       DIRECAO_CUNHA[i] <- "Grossa"
     } else if (rowSums(VETOR_PROJETADO*VETOR_FILTRO) < 0 & ORIENTACAO_FILTROS[i,1] == "Left")   {
@@ -266,7 +266,7 @@ if (length(grep("Bolus", texto)) == 0) {
     VETOR_RODADO <- VETOR_DISTANCIA %*% ROT_GRANTRY %*% ROT_MESA
     VETOR_PROJETADO <- VETOR_RODADO * (cbind(sin(G) , 1,  cos(G)) %*% ROT_GRANTRY %*% ROT_COL)
     
-    VETOR_FILTRO <- cbind(1,0,0)
+    VETOR_FILTRO <- cbind(1,-1,0)
     if (rowSums(VETOR_PROJETADO*VETOR_FILTRO) > 0 & ORIENTACAO_FILTROS[i,1] == "Left")   {
       DIRECAO_CUNHA[i] <- "Grossa"
     } else if (rowSums(VETOR_PROJETADO*VETOR_FILTRO) < 0 & ORIENTACAO_FILTROS[i,1] == "Left")   {

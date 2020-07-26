@@ -24,12 +24,12 @@ if (length(grep("Bolus", texto)) == 0) {
     F_DISTANCIA[i] <- ((100 + PROFUNDIDADE[i,1])/(SSD[i,1] + PROFUNDIDADE[i,1]))^2
   }
   
-  # CALCULO DIRETO PARA ELeTRONS
+  # CALCULO DIRETO PARA ELETRONS
   UM_CALCULADA <- (DOSE / FRACOES) / (F_RENDIMENTO_ELETRONS * F_ELETRONS_XiO * F_DISTANCIA)
   UM_CALCULADA_INT <- round(UM_CALCULADA, digits=0)
   DESVIOS_DIRETO <- (1 - UM_XiO/UM_CALCULADA_INT) * 100
   
-  # CALCULO INVERSO PARA ELeTRONS
+  # CALCULO INVERSO PARA ELETRONS
   DOSE_CALCULADA <- (UM_XiO * FRACOES) * (F_RENDIMENTO_ELETRONS * F_ELETRONS_XiO * F_DISTANCIA)
   DESVIOS_INVERSO <- (1 - DOSE/DOSE_CALCULADA) * 100
   
@@ -38,6 +38,7 @@ if (length(grep("Bolus", texto)) == 0) {
   APROVACAO[APROVACAO==0] <- "OK"
   APROVACAO[APROVACAO!="OK"] <- "ERRO"
 } else {
+  
   # SE TENHO BOLUS...
   DOSE <- t(as.data.frame(strsplit(sapply(buscaDeParametrosBOLUS("Weight ")[3,], function(x) {x <- gsub("/"," ",x)}), " "))[1,])
   DOSE <- as.data.frame(as.numeric(as.character(DOSE[1,])))
@@ -86,12 +87,12 @@ if (length(grep("Bolus", texto)) == 0) {
     F_DISTANCIA[i] <- ((100 + PROFUNDIDADE[i,1])/(SSD[i,1] + PROFUNDIDADE[i,1]))^2
   }
   
-  # CALCULO DIRETO PARA ELeTRONS
+  # CALCULO DIRETO PARA ELETRONS
   UM_CALCULADA <- (DOSE / FRACOES) / (F_RENDIMENTO_ELETRONS * F_ELETRONS_XiO * F_DISTANCIA)
   UM_CALCULADA_INT <- round(UM_CALCULADA, digits=0)
   DESVIOS_DIRETO <- (1 - UM_XiO/UM_CALCULADA_INT) * 100
   
-  # CALCULO INVERSO PARA ELeTRONS
+  # CALCULO INVERSO PARA ELETRONS
   # Este desvio deve ser calculado para as unidades que serao entregues 
   # para o paciente, no caso, as do XiO
   DOSE_CALCULADA <- (UM_XiO * FRACOES) * (F_RENDIMENTO_ELETRONS * F_ELETRONS_XiO * F_DISTANCIA)

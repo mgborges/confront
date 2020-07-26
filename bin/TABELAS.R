@@ -1,5 +1,4 @@
 # Extraindo informacoes
-
 ## PDP
 PDP_OPEN_10 <- lerPDP_TMR("../Comissionamento_AL_2010/TRABALHADOS/10X/TABELAS/PDP-OPEN-10X.tab")
 PDP_OPEN_06 <- lerPDP_TMR("../Comissionamento_AL_2010/TRABALHADOS/6X/TABELAS/PDP_OPEN_6X.tab")

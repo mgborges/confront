@@ -114,7 +114,7 @@ if (length(grep("Bolus", texto)) == 0) {
     }
   }
   
-  # FATORES COM DEPENDÊNCIA ENERGeTICA
+  # FATORES COM DEPENDÊNCIA ENERGETICA
   F_ABERTURA_COLIMADOR <- NULL
   F_RETROESPALHAMENTO <- NULL
   F_FILTRO <- NULL
@@ -164,12 +164,12 @@ if (length(grep("Bolus", texto)) == 0) {
   
   F_CALIBRACAO <- obterFatorCalibracao()
   
-  # CaLCULO DIRETO PARA FoTONS
+  # CALCULO DIRETO PARA FOTONS
   UM_CALCULADA <- (DOSE / FRACOES)/(PDP_OU_TMR * F_OFF_AXIS * F_CALIBRACAO * F_ABERTURA_COLIMADOR * F_RETROESPALHAMENTO * F_BANDEJA * F_FILTRO * F_DISTANCIA)
   UM_CALCULADA_INT <- round(UM_CALCULADA, digits=0)
   DESVIOS_DIRETO <- (1 - UM_XiO/UM_CALCULADA_INT) * 100
   
-  # CALCULO INVERSO PARA FoTONS
+  # CALCULO INVERSO PARA FOTONS
   DOSE_CALCULADA <- UM_XiO * FRACOES * PDP_OU_TMR * F_OFF_AXIS * F_CALIBRACAO * F_ABERTURA_COLIMADOR * F_RETROESPALHAMENTO * F_BANDEJA * F_FILTRO * F_DISTANCIA
   DESVIOS_INVERSO <- (1 - DOSE/DOSE_CALCULADA) * 100
   
@@ -178,6 +178,7 @@ if (length(grep("Bolus", texto)) == 0) {
   APROVACAO[APROVACAO==0] <- "OK"
   APROVACAO[APROVACAO!="OK"] <- "ERRO"
 } else {
+  
   # Se tenho bolus...
   # Fatores genericos para fotons
   PONTO_DE_CALCULO <- obterPontoCalculoBOLUS()
@@ -242,7 +243,6 @@ if (length(grep("Bolus", texto)) == 0) {
     M <- MESA[i,1] * pi/180 + pi/2
     ROT_GRANTRY <- rbind(c(sin(G), 0, -cos(G)), c(0,1,0), c(cos(G), 0, sin(G)))
     ROT_MESA <- rbind(c(sin(M), -cos(M), 0), c(cos(M), sin(M), 0), c(0,0,1))
-    # PRECISO CONSIDERAR A ROTAcaO DO COLIMADOR????
     D <- ISO[i,] - PONTO_DE_CALCULO[i,]
     VETOR_DISTANCIA <- cbind(D$X, D$Y, D$Z)
     VETOR_RODADO <- VETOR_DISTANCIA %*% ROT_GRANTRY %*% ROT_MESA
@@ -320,7 +320,7 @@ if (length(grep("Bolus", texto)) == 0) {
     }
   }
   
-  # FATORES COM DEPENDÊNCIA ENERGeTICA
+  # FATORES COM DEPENDENCIA ENERGETICA
   F_ABERTURA_COLIMADOR <- NULL
   F_RETROESPALHAMENTO <- NULL
   F_FILTRO <- NULL
@@ -370,12 +370,12 @@ if (length(grep("Bolus", texto)) == 0) {
   
   F_CALIBRACAO <- obterFatorCalibracao()
   
-  # CaLCULO DIRETO PARA FoTONS
+  # CaLCULO DIRETO PARA FOTONS
   UM_CALCULADA <- (DOSE / FRACOES)/(PDP_OU_TMR * F_OFF_AXIS * F_CALIBRACAO * F_ABERTURA_COLIMADOR * F_RETROESPALHAMENTO * F_BANDEJA * F_FILTRO * F_DISTANCIA)
   UM_CALCULADA_INT <- round(UM_CALCULADA, digits=0)
   DESVIOS_DIRETO <- (1 - UM_XiO/UM_CALCULADA_INT) * 100
   
-  # CALCULO INVERSO PARA FoTONS
+  # CALCULO INVERSO PARA FOTONS
   # Este desvio deve ser calculado para as unidades que serao entregues 
   # para o paciente, no caso, as do XiO
   DOSE_CALCULADA <- UM_XiO * FRACOES * PDP_OU_TMR * F_OFF_AXIS * F_CALIBRACAO * F_ABERTURA_COLIMADOR * F_RETROESPALHAMENTO * F_BANDEJA * F_FILTRO * F_DISTANCIA

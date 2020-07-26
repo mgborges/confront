@@ -1,5 +1,5 @@
 # Define a energia dos feixes empregados
-# Note que o nome dos feixes e dado pelo usuario, e pode variar
+# Note que o nome dos feixes e dado pelo usuario vai variar
 ENERGIA     <- as.data.frame(sapply(buscaDeParametros("Machine"), function(x) {x <- gsub("HC6MVatual","6 MV",x)}))
 ENERGIA     <- as.data.frame(sapply(ENERGIA, function(x) {x <- gsub("HC10MVatual","10 MV",x)}))
 ENERGIA     <- as.data.frame(sapply(ENERGIA, function(x) {x <- gsub("E04HC","4 MeV",x)}))

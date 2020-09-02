@@ -166,7 +166,7 @@ Ao final do processamento, um arquivo PDF é compilado do LaTex contendo todas a
 
 As tabelas de comissionamento são basicamente `data.frames`, onde `rownames` e `colnames` contém os parâmetros de busca implementados pelas funções de consulta. Os comandos `class()` e `View()` podem ser muito úteis.
 
-Um exemplo de tabela de TMP é:
+Um exemplo de tabela de TMR é:
 
 |  | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
 |-|-|-|-|-|-|-|-|

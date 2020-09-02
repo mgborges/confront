@@ -166,4 +166,17 @@ Ao final do processamento, um arquivo PDF é compilado do LaTex contendo todas a
 
 As tabelas de comissionamento são basicamente `data.frames`, onde `rownames` e `colnames` contém os parâmetros de busca implementados pelas funções de consulta. Os comandos `class()` e `View()` podem ser muito úteis.
 
+Um exemplo de tabela de TMP é:
+
+|  | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|-|-|-|-|-|-|-|-|
+| 0 | 0.4194 | 0.4266 | 0.4350 | 0.4434 | 0.4529 | 0.4622 | 0.4714 |
+| 0.5 | 0.6908 | 0.6930 | 0.7005 | 0.7047 | 0.7087 | 0.7155 | 0.7222 |
+| 1 | 0.9366 | 0.9345 | 0.9399 | 0.9403 | 0.9405 | 0.9428 | 0.9451 |
+| 1.5 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+| 2 | 1.0059 | 1.0046 | 1.0065 | 1.0060 | 1.0052 | 1.0042 | 1.0033 |
+| 2.5 | 0.9932 | 0.9933 | 0.9953 | 0.9946 | 0.9935 | 0.9930 | 0.9931 |
+
+onde a primeira linha é o tamanho de campo e a primeira coluna, a profundidade. Note que deve ser utilizado ponto ao invés de vírgula.
+
 E se tiver qualquer dúvida, basta escrever!

@@ -179,4 +179,6 @@ Um exemplo de tabela de TMR é:
 
 onde a primeira linha é o tamanho de campo e a primeira coluna, a profundidade. Note que deve ser utilizado ponto ao invés de vírgula.
 
-E se tiver qualquer dúvida, basta escrever!
+Outro ponto é o nome que é dado para cada um dos feixes disponíveis no serviço. Este parâmetro deve ser editado dentro os arquivos `FOTONS.R` e `ELETRONS.R`.
+
+E se tiver qualquer dúvida, basta escrever! O cógido deste programa é livre e pode ser utilizado e alterado livremente. Para acessoria na implementação desta ferramenta, consulte preços e disponibilidade entrando em [contato](mailto:murilogborges@gmail.com).

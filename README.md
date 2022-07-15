@@ -4,6 +4,10 @@
 
 O CONFRONT é um conferidor automático para o cálculo das unidades monitoras e da dose no ponto de cálculo provenientes do sistema de planejamento XiO implementado em R. Como resultado final, o programa resulta um arquivo PDF com diversos parâmetros físicos extraídos do arquivo source do XiO e fatores das tabelas de comissionamento.
 
+## Cite o trabalho
+
+Borges, M. G., Lima, R. B. B., Pereira, F. O., Costa, P. A. F., Santos, T. A., Antonio, T. R. T. A., Biazotto, B., & Pereira, M. T. (2022). CONFRONT: Proposta e implementação de um conferidor automático de cálculo em R a partir do XiO®. Revista Brasileira De Física Médica, 16, 595. https://doi.org/10.29384/rbfm.2022.v16.19849001595
+
 ## Instalação
 
 Abaixo é descrito o processo de instalação para o Windows. Para Linux e Mac o processo de instalação deve ser adaptado.
